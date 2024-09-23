@@ -226,7 +226,7 @@ class DSL:
         # printing cwd for debug
         print(os.getcwd())
         
-        with open("solvers/program.ml", "r") as f:
+        with open("dreamcoder-arc/ec/solvers/program.ml", "r") as f:
             contents = f.readlines()
 
         start_ix = min([i for i in range(len(contents)) if contents[i][0:7] == '(* AUTO'])
