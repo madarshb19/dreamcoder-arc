@@ -246,7 +246,7 @@ class DSL:
 
         contents = contents[0:start_ix+1] + lines + contents[end_ix:]
 
-        with open("solvers/program.ml", "w") as f:
+        with open("dreamcoder-arc/ec/solvers/program.ml", "w") as f:
             f.write(''.join(contents))
 
 dsl = DSL(typemap, verbose=False)
