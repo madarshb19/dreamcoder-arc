@@ -46,6 +46,7 @@ args = commandlineArguments(
 
 wandb_config = args.copy()
 wandb_config['hostname'] = os.uname()[1]
+print('starting wandb init')
 run = wandb.init(
     # set the wandb project where this run will be logged
     project="arc",
@@ -54,6 +55,7 @@ run = wandb.init(
     save_code=True,
     # magic=True,
 )
+print('wandb init finished')
 
 run_id = run.id#int(time.time())
 print(f'Run ID: {run_id}')
