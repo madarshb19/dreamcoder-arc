@@ -223,6 +223,9 @@ class DSL:
     def generate_ocaml_primitives(self):
         primitives = list(self.primitives.values())
 
+        # printing cwd for debug
+        print(os.getcwd())
+        
         with open("solvers/program.ml", "r") as f:
             contents = f.readlines()
 
