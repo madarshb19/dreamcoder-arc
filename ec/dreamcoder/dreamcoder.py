@@ -623,7 +623,7 @@ def sleep_recognition(result, grammar, taskBatch, tasks, testingTasks, allFronti
                                                                          CPUs=CPUs,
                                                                          evaluationTimeout=evaluationTimeout,
                                                                          timeout=timeout,
-                                                                         steps=recognitijonSteps,
+                                                                         steps=recognitionSteps,
                                                                          helmholtzRatio=helmholtzRatio,
                                                                          auxLoss=auxiliaryLoss,
                                                                          vectorized=True),
