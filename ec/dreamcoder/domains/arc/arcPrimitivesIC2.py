@@ -12,7 +12,40 @@ import numpy as np
 from collections import deque
 from statistics import mode
 
-from typing import Tuple, NewType, List, Callable, Dict, Type
+from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Container, FrozenSet, Iterable
+
+Boolean = bool
+Integer = int
+IntegerTuple = NewType("IntegerTuple", Tuple[Integer, Integer])
+Numerical = NewType("Numerical", Union[Integer, IntegerTuple])
+IntegerSet = NewType("IntegerSet", FrozenSet[Integer])
+GridM = NewType("GridM", Tuple[Tuple[Integer]])
+Cell = NewType("Cell", Tuple[Integer, IntegerTuple])
+Object = NewType("Object", FrozenSet[Cell])
+Objects = NewType("Objects", FrozenSet[Object])
+Indices = NewType("Indices", FrozenSet[IntegerTuple]
+IndicesSet = NewType("IndicesSet", FrozenSet[Indices])
+Patch = NewType("Patch", Union[Object, Indices])
+Element = NewType("Element", Union[Object, Grid])
+Piece = NewType("Piece", Union[Grid, Patch])
+TupleTuple = NewType("TupleTuple", Tuple[Tuple])
+ContainerContainer = NewType("ContainerContainer", Container[Container])
+
+tIntegerTuple = baseType("IntegerTuple")
+tNumerical = baseType("Numerical")
+tIntegerSet = baseType("IntegerSet")
+tGridM = baseType("GridM")
+tCell = baseType("Cell")
+tObject = baseType("Object")
+tObjects = baseType("Objects")
+tIndices = baseType("Indices")
+tIndicesSet = baseType("IndicesSet")
+tPatch = baseType("Patch")
+tElement = baseType("Element")
+tPiece = baseType("Piece")
+tTupleTuple = baseType("TupleTuple")
+tContainerContainer = baseType("ContainerContainer")
+
 
 tcolour = baseType("colour") # Any colour. We could use 1x1 grids for this, but by typing it we reduce the search space
 Colour = NewType("Colour", int)
@@ -97,6 +130,20 @@ typemap: Dict[Type, TypeConstructor] = {
     Size: tsize,
     Count: tcount,
     Grid: tgrid,
+    IntegerTuple: tIntegerTuple,
+    Numerical: tNumerical,
+    IntegerSet: tIntegerSet,
+    Grid: tGrid,
+    Cell: tCell,
+    Object: tObject,
+    Objects: tObjects,
+    Indices: tIndices,
+    IndicesSet: tIndicesSet,
+    Patch: tPatch,
+    Element: tElement,
+    Piece: tPiece,
+    TupleTuple: tTupleTuple,
+    ContainerContainer: tContainerContainer
 }
 
 def primitive_assert(boolean, message=None):
@@ -1150,6 +1197,23 @@ def gravity_left(g: Grid) -> Grid:
 @dsl.primitive
 def gravity_right(g: Grid) -> Grid:
     return gravity(g, dx=1)
+
+################### Hodel's primitives #########################
+
+@dsl.primitive
+def underpaint(
+    grid: GridM,
+    obj: Object
+) -> Grid:
+    """ paint object to grid where there is background """
+    h, w = len(grid), len(grid[0])
+    bg = mostcolor(grid)
+    g = list(list(r) for r in grid)
+    for value, (i, j) in obj:
+        if 0 <= i < h and 0 <= j < w:
+            if g[i][j] == bg:
+                g[i][j] = value
+    return tuple(tuple(r) for r in g)
 
 
 #############################
