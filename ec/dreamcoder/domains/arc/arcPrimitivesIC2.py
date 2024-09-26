@@ -133,7 +133,7 @@ typemap: Dict[Type, TypeConstructor] = {
     IntegerTuple: tIntegerTuple,
     Numerical: tNumerical,
     IntegerSet: tIntegerSet,
-    Grid: tGrid,
+    GridM: tGridM,
     Cell: tCell,
     Object: tObject,
     Objects: tObjects,
