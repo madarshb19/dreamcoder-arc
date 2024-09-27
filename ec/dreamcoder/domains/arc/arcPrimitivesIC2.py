@@ -150,7 +150,7 @@ typemap: Dict[Type, TypeConstructor] = {
     Element: tElement,
     Piece: tPiece,
     TupleTuple: tTupleTuple,
-    ContainerContainer: tContainerContainer
+    ContainerContainer: tContainerContainer,
     Integer: tInteger,
     Boolean: tBoolean
 }
