@@ -1201,20 +1201,28 @@ def gravity_right(g: Grid) -> Grid:
 
 ################### Hodel's primitives #########################
 
-# @dsl.primitive
-# def underpaint(
-#     grid: GridM,
-#     obj: Object
-# ) -> Grid:
-#     """ paint object to grid where there is background """
-#     h, w = len(grid), len(grid[0])
-#     bg = mostcolor(grid)
-#     g = list(list(r) for r in grid)
-#     for value, (i, j) in obj:
-#         if 0 <= i < h and 0 <= j < w:
-#             if g[i][j] == bg:
-#                 g[i][j] = value
-#     return tuple(tuple(r) for r in g)
+@dsl.primitive
+def mostcolor(
+    element: Element
+) -> Integer:
+    """ most common color """
+    values = [v for r in element for v in r] if isinstance(element, tuple) else [v for v, _ in element]
+    return max(set(values), key=values.count)
+
+@dsl.primitive
+def underpaint(
+    grid: GridM,
+    obj: Object
+) -> Grid:
+    """ paint object to grid where there is background """
+    h, w = len(grid), len(grid[0])
+    bg = mostcolor(grid)
+    g = list(list(r) for r in grid)
+    for value, (i, j) in obj:
+        if 0 <= i < h and 0 <= j < w:
+            if g[i][j] == bg:
+                g[i][j] = value
+    return tuple(tuple(r) for r in g)
 
 
 #############################
