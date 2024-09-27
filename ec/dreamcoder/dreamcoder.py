@@ -144,46 +144,47 @@ def ecIterator(grammar, tasks,
                seed=0,
                addFullTaskMetrics=False,
                matrixRank=None,
-               solver='ocaml',
+               solver='ocaml', #can we change this?
                compressor="rust",
-               biasOptimal=False,
-               contextual=False,
+               biasOptimal=False, #what dis #sleep
+               contextual=False, #what dis #sleep
                testingTasks=[],
-               iterations=None,
+               iterations=None, #what dis -- bingo?
                resume=None,
                enumerationTimeout=None,
                testingTimeout=None,
                testEvery=1,
                reuseRecognition=False,
-               ensembleSize=1,
+               ensembleSize=1, #what dis #sleep
                useRecognitionModel=True,
-               recognitionTimeout=None,
-               recognitionSteps=None,
+               recognitionTimeout=None, #what dis #sleep
+               recognitionSteps=None, #what dis #used in sleep_recognition, passed as arg
                helmholtzRatio=0.,
                featureExtractor=None,
-               activation='relu',
-               topK=1,
+               activation='relu', #what dis #sleep
+               topK=1, #what dis #done every iteration?
                topk_use_only_likelihood=False,
                use_map_search_times=True,
-               maximumFrontier=None,
+               maximumFrontier=None, #what dis #used in wake_generative, passed as arg #wake
                pseudoCounts=1.0, aic=1.0,
                structurePenalty=0.001, arity=0,
-               evaluationTimeout=1.0,  # seconds
+               evaluationTimeout=1.0,  # seconds #could be wake or sleep
                taskBatchSize=None,
                taskReranker='default',
-               CPUs=1,
+               CPUs=1, 
                cuda=False,
                message="",
                outputPrefix=None,
                storeTaskMetrics=False,
                rewriteTaskMetrics=True,
-               auxiliaryLoss=False,
+               auxiliaryLoss=False, #what dis #sleep
                custom_wake_generative=None,
 
                evalset=None, # ignored
                bothset=None, # ignored
                task_isolation=False,
                ):
+    #bunch of sanity checks on config
     if enumerationTimeout is None:
         eprint(
             "Please specify an enumeration timeout:",
@@ -313,7 +314,7 @@ def ecIterator(grammar, tasks,
                               t: Frontier([],
                                           task=t) for t in tasks})
 
-
+    #another hyperparameter?
     # Set up the task batcher.
     if taskReranker == 'default':
         taskBatcher = DefaultTaskBatcher()
@@ -415,13 +416,13 @@ def ecIterator(grammar, tasks,
             wake_generative = custom_wake_generative if custom_wake_generative is not None else default_wake_generative
             topDownFrontiers, times = wake_generative(grammar, wakingTaskBatch,
                                                       solver=solver,
-                                                      maximumFrontier=maximumFrontier,
+                                                      maximumFrontier=maximumFrontier, #hyper param? tree size
                                                       enumerationTimeout=enumerationTimeout,
                                                       CPUs=CPUs,
                                                       evaluationTimeout=evaluationTimeout,
                                                       result=result,
                                                       use_dctrace=True,
-                                                      task_isolation=task_isolation,
+                                                      task_isolation=task_isolation, #what dis
                                                       )
             result.trainSearchTime = {t: tm for t, tm in times.items() if tm is not None}
         else:
@@ -453,19 +454,38 @@ def ecIterator(grammar, tasks,
             if all( f.empty for f in result.allFrontiers.values() ): thisRatio = 1.                
 
             tasksHitBottomUp = \
-             sleep_recognition(result, grammar, wakingTaskBatch, tasks, testingTasks, result.allFrontiers.values(),
-                               ensembleSize=ensembleSize, featureExtractor=featureExtractor, mask=mask,
-                               activation=activation, contextual=contextual, biasOptimal=biasOptimal,
-                               previousRecognitionModel=previousRecognitionModel, matrixRank=matrixRank,
-                               timeout=recognitionTimeout, evaluationTimeout=evaluationTimeout,
-                               enumerationTimeout=enumerationTimeout,
-                               helmholtzRatio=thisRatio, helmholtzFrontiers=helmholtzFrontiers(),
-                               auxiliaryLoss=auxiliaryLoss, cuda=cuda, CPUs=CPUs, solver=solver,
-                               recognitionSteps=recognitionSteps, maximumFrontier=maximumFrontier)
+             sleep_recognition(
+                 result
+                 , grammar
+                 , wakingTaskBatch
+                 , tasks
+                 , testingTasks
+                 , result.allFrontiers.values()
+                 , ensembleSize=ensembleSize
+                 , featureExtractor=featureExtractor #what dis
+                 , mask=mask
+                 , activation=activation
+                 , contextual=contextual #what dis
+                 , biasOptimal=biasOptimal
+                 , previousRecognitionModel=previousRecognitionModel
+                 , matrixRank=matrixRank
+                 , timeout=recognitionTimeout
+                 , evaluationTimeout=evaluationTimeout
+                 , enumerationTimeout=enumerationTimeout
+                 , helmholtzRatio=thisRatio
+                 , helmholtzFrontiers=helmholtzFrontiers()
+                 , auxiliaryLoss=auxiliaryLoss
+                 , cuda=cuda
+                 , CPUs=CPUs
+                 , solver=solver
+                 , recognitionSteps=recognitionSteps #what dis
+                 , maximumFrontier=maximumFrontier
+             )
 
             showHitMatrix(tasksHitTopDown, tasksHitBottomUp, wakingTaskBatch)
             
         # Record the new topK solutions
+        # what is topK?
         result.taskSolutions = {f.task: f.topK(topK)
                                 for f in result.allFrontiers.values()}
         for f in result.allFrontiers.values(): result.recordFrontier(f)
@@ -526,7 +546,7 @@ def evaluateOnTestingTasks(result, testingTasks, grammar, _=None,
     if result.recognitionModel is not None:
         recognizer = result.recognitionModel
         testingFrontiers, times = \
-         recognizer.enumerateFrontiers(testingTasks, 
+         recognizer.enumerateFrontiers(testingTasks, #what dis
                                        CPUs=CPUs,
                                        solver=solver,
                                        maximumFrontier=maximumFrontier,
