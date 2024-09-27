@@ -1235,6 +1235,20 @@ def underpaint(
                 g[i][j] = value
     return tuple(tuple(r) for r in g)
 
+@dsl.primitive
+def add(
+    a: Numerical,
+    b: Numerical
+) -> Numerical:
+    """ addition """
+    if isinstance(a, int) and isinstance(b, int):
+        return a + b
+    elif isinstance(a, tuple) and isinstance(b, tuple):
+        return (a[0] + b[0], a[1] + b[1])
+    elif isinstance(a, int) and isinstance(b, tuple):
+        return (a + b[0], a + b[1])
+    return (a[0] + b, a[1] + b)
+
 
 #############################
 # PRIMITIVE GENERATION
