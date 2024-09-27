@@ -16,20 +16,6 @@ from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Conta
 
 Boolean = bool
 Integer = int
-IntegerTuple = NewType("IntegerTuple", Tuple[Integer, Integer])
-Numerical = NewType("Numerical", Union[Integer, IntegerTuple])
-IntegerSet = NewType("IntegerSet", FrozenSet[Integer])
-GridM = NewType("GridM", Tuple[Tuple[Integer]])
-Cell = NewType("Cell", Tuple[Integer, IntegerTuple])
-Object = NewType("Object", FrozenSet[Cell])
-Objects = NewType("Objects", FrozenSet[Object])
-Indices = NewType("Indices", FrozenSet[IntegerTuple])
-IndicesSet = NewType("IndicesSet", FrozenSet[Indices])
-Patch = NewType("Patch", Union[Object, Indices])
-Element = NewType("Element", Union[Object, GridM])
-Piece = NewType("Piece", Union[GridM, Patch])
-TupleTuple = NewType("TupleTuple", Tuple[Tuple])
-ContainerContainer = NewType("ContainerContainer", Container[Container])
 
 tIntegerTuple = baseType("IntegerTuple")
 tNumerical = baseType("Numerical")
@@ -45,6 +31,21 @@ tElement = baseType("Element")
 tPiece = baseType("Piece")
 tTupleTuple = baseType("TupleTuple")
 tContainerContainer = baseType("ContainerContainer")
+
+IntegerTuple = NewType("IntegerTuple", Tuple[Integer, Integer])
+Numerical = NewType("Numerical", Union[Integer, IntegerTuple])
+IntegerSet = NewType("IntegerSet", FrozenSet[Integer])
+GridM = NewType("GridM", Tuple[Tuple[Integer]])
+Cell = NewType("Cell", Tuple[Integer, IntegerTuple])
+Object = NewType("Object", FrozenSet[Cell])
+Objects = NewType("Objects", FrozenSet[Object])
+Indices = NewType("Indices", FrozenSet[IntegerTuple])
+IndicesSet = NewType("IndicesSet", FrozenSet[Indices])
+Patch = NewType("Patch", Union[Object, Indices])
+Element = NewType("Element", Union[Object, GridM])
+Piece = NewType("Piece", Union[GridM, Patch])
+TupleTuple = NewType("TupleTuple", Tuple[Tuple])
+ContainerContainer = NewType("ContainerContainer", Container[Container])
 
 
 tcolour = baseType("colour") # Any colour. We could use 1x1 grids for this, but by typing it we reduce the search space
