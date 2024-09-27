@@ -18,10 +18,10 @@ from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Conta
 # Integer = int
 
 tInteger = baseType("Integer")
-Integer = newType("Integer", int)
+Integer = NewType("Integer", int)
 
 tBoolean = baseType("Boolean")
-Boolean = newType("Boolean", bool)
+Boolean = NewType("Boolean", bool)
 
 tIntegerTuple = baseType("IntegerTuple")
 tNumerical = baseType("Numerical")
