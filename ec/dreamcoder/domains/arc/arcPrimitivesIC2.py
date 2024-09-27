@@ -182,6 +182,7 @@ class DSL:
             return self.typemap[anno]
 
         print('this is anno :',anno)
+        print('this is typemap :', self.typemap)
         
         raise TypeError(f"Annotation {anno} has no corresponding DreamCoder type")
 
