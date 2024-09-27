@@ -151,6 +151,8 @@ typemap: Dict[Type, TypeConstructor] = {
     Piece: tPiece,
     TupleTuple: tTupleTuple,
     ContainerContainer: tContainerContainer
+    Integer: tInteger,
+    Boolean: tBoolean
 }
 
 def primitive_assert(boolean, message=None):
