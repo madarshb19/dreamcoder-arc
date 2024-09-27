@@ -56,6 +56,8 @@ def multicoreEnumeration(g, tasks, _=None,
                 
     task2grammar = g
 
+    print('task2grammar looks like this: ', task2grammar)
+
     solver_str = solver
     solver = solvers[solver]
 
