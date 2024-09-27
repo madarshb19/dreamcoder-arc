@@ -14,8 +14,14 @@ from statistics import mode
 
 from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Container, FrozenSet, Iterable
 
-Boolean = bool
-Integer = int
+# Boolean = bool
+# Integer = int
+
+tInteger = baseType("Integer")
+Integer = newType("Integer", int)
+
+tBoolean = baseType("Boolean")
+Boolean = newType("Boolean", bool)
 
 tIntegerTuple = baseType("IntegerTuple")
 tNumerical = baseType("Numerical")
