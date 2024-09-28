@@ -19,6 +19,8 @@ from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Conta
 
 tAny = baseType("Any")
 Any = NewType("Any", Any)
+tContainer = baseType("Container")
+Container = NewType("Container", Container)
 
 tInteger = baseType("Integer")
 Integer = NewType("Integer", int)
@@ -156,7 +158,8 @@ typemap: Dict[Type, TypeConstructor] = {
     ContainerContainer: tContainerContainer,
     Integer: tInteger,
     Boolean: tBoolean,
-    Any: tAny
+    Any: tAny,
+    Container: tContainer
 }
 
 def primitive_assert(boolean, message=None):
