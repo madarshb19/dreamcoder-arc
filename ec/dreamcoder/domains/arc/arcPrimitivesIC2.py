@@ -17,6 +17,9 @@ from typing import Tuple, NewType, List, Callable, Dict, Type, Union, Any, Conta
 # Boolean = bool
 # Integer = int
 
+tAny = baseType("Any")
+Any = NewType("Any", Any)
+
 tInteger = baseType("Integer")
 Integer = NewType("Integer", int)
 
