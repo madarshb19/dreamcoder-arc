@@ -76,6 +76,7 @@ class MikelArcNet(nn.Module):
         y = y.to(torch.float32)
         device = next(self.parameters()).device
         x = x.to(device)
+        y = y.to(device)
         # print(x.shape, y.shape)
         try:
             # x = self.model(x)
