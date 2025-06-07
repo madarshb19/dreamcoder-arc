@@ -74,9 +74,12 @@ class MikelArcNet(nn.Module):
         # (num_examples, num_colors, h, w) to (num_examples, intermediate_dim)
         x = x.to(torch.float32)
         y = y.to(torch.float32)
+        device = next(self.parameters()).device
+        x = x.to(device)
         # print(x.shape, y.shape)
         try:
             # x = self.model(x)
+
             x = self.convblock0(x)
             x = self.res1(x) + x
             x = self.res2(x) + x
