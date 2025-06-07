@@ -644,7 +644,7 @@ def ic_spread(g: Grid) -> Grid:
     output_grid = np.copy(g.grid)
 
     # Reproduce the done array
-    done = np.bool(g.grid)
+    done = bool(g.grid)
     queue = deque([(row, col, g.grid[row, col]) for row, col in zip(*np.where(done))])
 
     # Loop through the queue
@@ -674,7 +674,7 @@ def ic_spread_minor(g: Grid) -> Grid:
     output_grid = np.copy(g.grid)
 
     # Reproduce the done array
-    done = np.bool(g.grid & (g.grid != np.bincount(g.grid.ravel()).argmax()))
+    done = bool(g.grid & (g.grid != np.bincount(g.grid.ravel()).argmax()))
     queue = deque([(row, col, g.grid[row, col]) for row, col in zip(*np.where(done))])
 
     # Loop through the queue
@@ -768,7 +768,7 @@ def ic_cut(g: Grid) -> List[Grid]:
     ret_score = -1
 
     colour_mask = g.grid == top_colour
-    done = np.zeros_like(colour_mask, dtype=np.bool)
+    done = np.zeros_like(colour_mask, dtype=bool)
 
 @dsl.primitive
 def ic_splitcols(g: Grid) -> List[Grid]:
